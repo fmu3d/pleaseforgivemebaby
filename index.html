@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Forgive Me</title>
+  <style>
+    body {
+      background: #0f0f0f;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .text {
+      font-size: 2rem;
+      text-align: center;
+      margin: 20px;
+      white-space: pre-wrap;
+      max-width: 90%;
+      line-height: 1.5;
+    }
+
+  .heart {
+  width: 100px;
+  height: 90px;
+  position: relative;
+  background: red;
+  transform: rotate(-45deg);
+  animation: pulse 1s infinite;
+  margin-top: 20px;
+}
+
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 90px;
+  background: red;
+  border-radius: 50%;
+}
+
+.heart::before {
+  top: -50px;
+  left: 0;
+}
+
+.heart::after {
+  left: 50px;
+  top: 0;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1) rotate(-45deg); }
+  50% { transform: scale(1.1) rotate(-45deg); }
+  100% { transform: scale(1) rotate(-45deg); }
+}
+    }
+  </style>
+</head>
+<body>
+  <div class="text" id="message"></div>
+  <div class="heart" id="heart" style="display: none;"></div>
+  <div class="text" id="final" style="display: none; font-size: 1.8rem; color: #ff8080;"></div>
+
+  <script>
+    const messageEl = document.getElementById("message");
+    const heartEl = document.getElementById("heart");
+    const finalEl = document.getElementById("final");
+
+    const messages = [
+      "Will you forgive this insane?",
+      "I know he does mistakes, but forgive him? please?",
+    ];
+
+    let index = 0;
+    let charIndex = 0;
+
+    function typeMessage() {
+      if (index < messages.length) {
+        messageEl.textContent += messages[index][charIndex];
+        charIndex++;
+
+        if (charIndex < messages[index].length) {
+          setTimeout(typeMessage, 60);
+        } else {
+          index++;
+          charIndex = 0;
+          setTimeout(() => {
+            messageEl.textContent += "\n\n";
+            typeMessage();
+          }, 700);
+        }
+      } else {
+        setTimeout(() => {
+          heartEl.style.display = "block";
+          setTimeout(() => {
+            finalEl.style.display = "block";
+            finalEl.textContent = "I love you, Anila ❤️";
+          }, 1200);
+        }, 1000);
+      }
+    }
+
+    typeMessage();
+  </script>
+</body>
+</html>
